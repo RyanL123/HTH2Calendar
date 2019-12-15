@@ -284,3 +284,35 @@ button:hover {
     text-align: right;
     font-family: OxyReg;
 }
+
+.delete-card {
+    margin: 0;
+    margin-top: 2%;
+    -webkit-transition: background-color 200ms linear;
+    -ms-transition: background-color 200ms linear;
+    transition: background-color 200ms linear;
+}
+
+.delete-card:hover {
+    background-color: #f54542;
+    border-color: #f54542;
+    -webkit-transition: background-color 200ms linear;
+    -ms-transition: background-color 200ms linear;
+    transition: background-color 200ms linear;
+}
+
+.not-complete {
+    color: #f54542;
+}
+
+.halfway {
+    color: #ff7817;
+}
+
+.almost-complete {
+    color: #5cde1b;
+}
+
+.complete {
+    color: #3261d9;
+}
