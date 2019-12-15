@@ -202,11 +202,11 @@ function writeSubEvents(i){
 
         // Sub event has been completed
         if (events.events[i].subEvents[j]){
-            outputString += "<li class=\"completed\"> <input onClick=updateFinishedPercent(\"" + cardID + "\") type=\"checkbox\" id=\"" + j + "\"checked/>" + j + "</li>";
+            outputString += "<li class=\"completed\"> <input class=\"checkbox\" onClick=updateFinishedPercent(\"" + cardID + "\") type=\"checkbox\" id=\"" + j + "\"checked/>" + "<span class=\"checkbox-custom\"></span>" + j + "</li>";
         }
         // Sub event has not been completed
         else {
-            outputString += "<li class=\"incomplete\"> <input onClick=updateFinishedPercent(\"" + cardID + "\") type=\"checkbox\" id=\"" + j + "\"/> " + j + "</li>";
+            outputString += "<li class=\"incomplete\"> <input onClick=updateFinishedPercent(\"" + cardID + "\") type=\"checkbox\" id=\"" + j + "\"/> " + "<span class=\"checkbox-custom\"></span>" + j + "</li>";
         }
     }
     return outputString + "</ul>";
@@ -262,6 +262,11 @@ function updateFinishedPercent(id){
                     // changes aren't overwritten when calling
                     // writeCards() again
                     events.events[j].subEvents[i] = true;
+                }
+                else {
+                    // Modify completion boolean in JSON object so
+                    // sube events are not permanently true
+                    events.events[j].subEvents[i] = false;
                 }
             }
             // Break upon finding the targeted task

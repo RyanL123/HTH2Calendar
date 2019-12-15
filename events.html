@@ -4,12 +4,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Calendar</title>
+    <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <link rel="stylesheet" href="./css/events.css">
+    <!-- JQuery date picker css -->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="/resources/demos/style.css">
+
+    <link rel="stylesheet" href="./css/events.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <script>
         $(function() {
             $("#datepicker").datepicker();
@@ -17,11 +21,14 @@
     </script>
 </head>
 <body>
+    <div id="welcome">
+        <h1 data-aos="fade-up" data-aos-deplay="500">Welcome, Ryan</h1>
+    </div>
     <div id="schedule">
-        <button><a href="index.html">Go Back</a></button>
-        <button id="create-event" onclick=showCreateEventForm()>Create an event</button>
-        <button id="sort" onclick=sortEventsByDay()>Sort By Due Date</button>
-        <button onclick=sortByCompletion()>Sort By Completion</button>
+        <button data-aos="fade-in" data-aos-delay="500" data-aos-duration="1000"><a href="index.html">Home</a></button>
+        <button data-aos="fade-in" data-aos-delay="500" data-aos-duration="1000" id="create-event" onclick=showCreateEventForm()>New event</button>
+        <button data-aos="fade-in" data-aos-delay="500" data-aos-duration="1000" id="sort" onclick=sortEventsByDay()>Sort By Date</button>
+        <button data-aos="fade-in" data-aos-delay="500" data-aos-duration="1000" onclick=sortByCompletion()>Sort By Progress</button>
         <div id="create-event-form">
             <form>
                 <input type="text" placeholder="Event Name" id="event-name"/>
@@ -36,5 +43,9 @@
         <div id="cardsContainer"></div>
     </div>
     <script src="js/events.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
 </body>
 </html>
