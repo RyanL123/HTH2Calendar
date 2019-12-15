@@ -1,0 +1,3 @@
+Landing page (using creative tim)
+    - add logo at top left corner
+    - change space background to calendar background?
