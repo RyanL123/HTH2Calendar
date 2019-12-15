@@ -1,3 +1,11 @@
-Landing page (using creative tim)
-    - add logo at top left corner
-    - change space background to calendar background?
+Landing Page
+    - change 'Title' to final product's name
+    - change 4 phone images to product images
+    - change the 'Free' section to sound more professional, maybe change topic
+Calendar
+    - integrate live events with calendar
+Events
+    - add check boxes
+    - add colours for percentages (4 colour palettes)
+Overall and Devpost
+    - refine and polish
