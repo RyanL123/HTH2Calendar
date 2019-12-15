@@ -46,55 +46,37 @@ function parseStringIntoDate(str){
 
 var reverseDate = false;
 function sortEventsByDay(){
-    if (!reverseDate){
-        events.events.sort(
-            function(a, b){
-                let aYear = a.dueYear * 100000 + a.dueMonth*1000 + a.dueDay;
-                let bYear = b.dueYear * 100000 + b.dueMonth*1000 + b.dueDay;
+    events.events.sort(
+        function(a, b){
+            let aYear = a.dueYear * 100000 + a.dueMonth*1000 + a.dueDay;
+            let bYear = b.dueYear * 100000 + b.dueMonth*1000 + b.dueDay;
+            if (!reverseDate){
+                reverseDate = !reverseDate;
                 return aYear - bYear;
-            }
-        )
-        reverseDate = !reverseDate;
-    }
-    else {
-        events.events.sort(
-            function(a, b){
-                let aYear = a.dueYear * 100000 + a.dueMonth*1000 + a.dueDay;
-                let bYear = b.dueYear * 100000 + b.dueMonth*1000 + b.dueDay;
+            } else {
+                reverseDate = !reverseDate;
                 return bYear - aYear;
             }
-        )
-        reverseDate = !reverseDate;
-    }
+        }
+    )
     writeCards();
 }
 
-var reverseCompletetion = false;
+var reverseCompletion = false;
 function sortByCompletion(){
-    if (!reverseCompletetion){
-        events.events.sort(
-            function(a, b){
-                // console.log(reverseCompletetion);
-                // console.log(a);
-                // console.log(b);
-                // console.log(finishedPercentFromObject(a) - finishedPercentFromObject(b));
+    events.events.sort(
+        function(a, b){
+            if (reverseCompletion){
+                reverseCompletion = !reverseCompletion;
                 return finishedPercentFromObject(a) - finishedPercentFromObject(b);
-            }
-        )
-        reverseCompletetion = !reverseCompletetion;
-    }
-    else {
-        events.events.sort(
-            function(a, b){
-                // console.log(reverseCompletetion);
-                // console.log(a);
-                // console.log(b);
-                // console.log(finishedPercentFromObject(b) - finishedPercentFromObject(a));
+            } else {
+                reverseCompletion = !reverseCompletion;
                 return finishedPercentFromObject(b) - finishedPercentFromObject(a);
             }
-        )
-        reverseCompletetion = !reverseCompletetion;
-    }
+            
+        }
+    )
+    writeCards();
 }
 
 function finishedPercentFromObject(obj){
