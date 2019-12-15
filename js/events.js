@@ -17,9 +17,10 @@ var events = {
             "dueMonth": 1,
             "dueDay": 8,
             "subEvents": {
-                "Calculate Results": false,
-                "Edit introduction": false,
-                "Cite sources": false
+                "Hypothesis": true,
+                "Procedure": false,
+                "Observations": false,
+                "Analysis": false
             }
         }
     ]

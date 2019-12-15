@@ -3,13 +3,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Calendar</title>
+    <title>Events</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link rel="stylesheet" href="./css/events.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="/resources/demos/style.css">
+    <link rel="shortcut icon" type="image/png" href="https://fvm.ukim.edu.mk/vetnest-summerschool/wp-content/uploads/2018/11/calendars-icon.png"/>
     <script>
         $(function() {
             $("#datepicker").datepicker();
@@ -19,15 +20,15 @@
 <body>
     <div id="schedule">
         <button><a href="index.html">Go Back</a></button>
-        <button id="create-event" onclick=showCreateEventForm()>Create an event</button>
-        <button id="sort" onclick=sortEventsByDay()>Sort By Due Date</button>
-        <button onclick=sortByCompletion()>Sort By Completion</button>
+        <button id="create-event" onclick=showCreateEventForm()>Create an Event</button>
+        <button id="sort" onclick=sortEventsByDay()>Sort by Due Date</button>
+        <button onclick=sortByCompletion()>Sort by Completion</button>
         <div id="create-event-form">
             <form>
                 <input type="text" placeholder="Event Name" id="event-name"/>
                 <input type="text" placeholder="Date" id="datepicker"/>
                 <br><br>
-                <textarea id="create-event-goals" type="text" placeholder="Input goals on separate lines"></textarea>
+                <textarea id="create-event-goals" type="text" placeholder="Enter goals on separate lines"></textarea>
                 <br><br>
             </form>
         </div>
