@@ -17,9 +17,9 @@ var events = {
             "dueMonth": 1,
             "dueDay": 8,
             "subEvents": {
-                "Body Paragraph 1": false,
-                "Body Paragraph 3": false,
-                "Conclusion Paragraph": false
+                "Calculate Results": false,
+                "Edit introduction": false,
+                "Cite sources": false
             }
         }
     ]
@@ -40,19 +40,73 @@ function parseDate(day, month, year){
     return months[month-1] + " " + day + ", " + year;
 }
 
-function praseStringIntoDate(str){
+function parseStringIntoDate(str){
     return date = str.split("/");
 }
 
+var reverseDate = false;
 function sortEventsByDay(){
-    events.events.sort(
-        function(a, b){
-            let aYear = a.dueYear * 10000 + a.dueMonth*100 + a.dueDay;
-            let bYear = b.dueYear * 10000 + b.dueMonth*100 + b.dueDay;
-            return aYear - bYear;
-        }
-    )
+    if (!reverseDate){
+        events.events.sort(
+            function(a, b){
+                let aYear = a.dueYear * 100000 + a.dueMonth*1000 + a.dueDay;
+                let bYear = b.dueYear * 100000 + b.dueMonth*1000 + b.dueDay;
+                return aYear - bYear;
+            }
+        )
+        reverseDate = !reverseDate;
+    }
+    else {
+        events.events.sort(
+            function(a, b){
+                let aYear = a.dueYear * 100000 + a.dueMonth*1000 + a.dueDay;
+                let bYear = b.dueYear * 100000 + b.dueMonth*1000 + b.dueDay;
+                return bYear - aYear;
+            }
+        )
+        reverseDate = !reverseDate;
+    }
     writeCards();
+}
+
+var reverseCompletetion = false;
+function sortByCompletion(){
+    if (!reverseCompletetion){
+        events.events.sort(
+            function(a, b){
+                // console.log(reverseCompletetion);
+                // console.log(a);
+                // console.log(b);
+                // console.log(finishedPercentFromObject(a) - finishedPercentFromObject(b));
+                return finishedPercentFromObject(a) - finishedPercentFromObject(b);
+            }
+        )
+        reverseCompletetion = !reverseCompletetion;
+    }
+    else {
+        events.events.sort(
+            function(a, b){
+                // console.log(reverseCompletetion);
+                // console.log(a);
+                // console.log(b);
+                // console.log(finishedPercentFromObject(b) - finishedPercentFromObject(a));
+                return finishedPercentFromObject(b) - finishedPercentFromObject(a);
+            }
+        )
+        reverseCompletetion = !reverseCompletetion;
+    }
+}
+
+function finishedPercentFromObject(obj){
+    let subEventCount = 0;
+    let finishedSubEventCount = 0;
+    for (var j in obj.subEvents){
+        subEventCount++;
+        if (obj.subEvents[j]){
+            finishedSubEventCount++;
+        }
+    }
+    return (finishedSubEventCount/subEventCount) * 100;
 }
 
 function showCreateEventForm(){
@@ -61,10 +115,9 @@ function showCreateEventForm(){
 }
 
 function addEvent(){
-    console.log("success");
     let name = document.getElementById("event-name").value;
     let date = document.getElementById("datepicker").value;
-    let goals = "{\"" + document.getElementById("create-event-goals").value.replace("\n", "\":false, \"") + "\":false}";
+    let goals = "{\"" + (document.getElementById("create-event-goals").value).replace(/\n/g, "\":false, \"") + "\":false}";
     document.getElementById("event-name").value = "";
     document.getElementById("datepicker").value = "";
     document.getElementById("create-event-goals").value = "";
@@ -76,13 +129,12 @@ function addEvent(){
     events.events.push(
         {
             "name": name,
-            "dueYear": praseStringIntoDate(date)[2],
-            "dueMonth": praseStringIntoDate(date)[0],
-            "dueDay": praseStringIntoDate(date)[1],
+            "dueYear": parseInt(parseStringIntoDate(date)[2]),
+            "dueMonth": parseInt(parseStringIntoDate(date)[0]),
+            "dueDay": parseInt(parseStringIntoDate(date)[1]),
             "subEvents": JSON.parse(goals)
         }
     )
-    
     writeCards();
 }
 
