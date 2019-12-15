@@ -65,7 +65,14 @@ function addEvent(){
     let name = document.getElementById("event-name").value;
     let date = document.getElementById("datepicker").value;
     let goals = "{\"" + document.getElementById("create-event-goals").value.replace("\n", "\":false, \"") + "\":false}";
-    console.log(goals);
+    document.getElementById("event-name").value = "";
+    document.getElementById("datepicker").value = "";
+    document.getElementById("create-event-goals").value = "";
+    document.getElementById("create-event-form").style.display = "none";
+    document.getElementById("submit-event").style.display = "none";
+    if (name == "" || date == "" || goals == ""){
+        return;
+    }
     events.events.push(
         {
             "name": name,
@@ -75,8 +82,7 @@ function addEvent(){
             "subEvents": JSON.parse(goals)
         }
     )
-    document.getElementById("create-event-form").style.display = "none";
-    document.getElementById("submit-event").style.display = "none";
+    
     writeCards();
 }
 
