@@ -46,36 +46,47 @@ function parseStringIntoDate(str){
 
 var reverseDate = false;
 function sortEventsByDay(){
-    events.events.sort(
-        function(a, b){
-            let aYear = a.dueYear * 100000 + a.dueMonth*1000 + a.dueDay;
-            let bYear = b.dueYear * 100000 + b.dueMonth*1000 + b.dueDay;
-            if (!reverseDate){
-                reverseDate = !reverseDate;
+    if (!reverseDate){
+        events.events.sort(
+            function(a, b){
+                let aYear = a.dueYear * 100000 + a.dueMonth*1000 + a.dueDay;
+                let bYear = b.dueYear * 100000 + b.dueMonth*1000 + b.dueDay;
                 return aYear - bYear;
-            } else {
-                reverseDate = !reverseDate;
+            }
+        )
+        reverseDate = !reverseDate;
+    }
+    else {
+        events.events.sort(
+            function(a, b){
+                let aYear = a.dueYear * 100000 + a.dueMonth*1000 + a.dueDay;
+                let bYear = b.dueYear * 100000 + b.dueMonth*1000 + b.dueDay;
                 return bYear - aYear;
             }
-        }
-    )
+        )
+        reverseDate = !reverseDate;
+    }
     writeCards();
 }
 
 var reverseCompletion = false;
 function sortByCompletion(){
-    events.events.sort(
-        function(a, b){
-            if (reverseCompletion){
-                reverseCompletion = !reverseCompletion;
+    if (!reverseCompletion){
+        events.events.sort(
+            function(a, b){
                 return finishedPercentFromObject(a) - finishedPercentFromObject(b);
-            } else {
-                reverseCompletion = !reverseCompletion;
+            }
+        )
+        reverseCompletion = !reverseCompletion;
+    }
+    else {
+        events.events.sort(
+            function(a, b){
                 return finishedPercentFromObject(b) - finishedPercentFromObject(a);
             }
-            
-        }
-    )
+        )
+        reverseCompletion = !reverseCompletion;
+    }
     writeCards();
 }
 
