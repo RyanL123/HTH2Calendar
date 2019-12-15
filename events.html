@@ -3,7 +3,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Calendar</title>
+
+    <title>Events</title>
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -12,6 +13,7 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="/resources/demos/style.css">
 
+    <link rel="shortcut icon" type="image/png" href="https://fvm.ukim.edu.mk/vetnest-summerschool/wp-content/uploads/2018/11/calendars-icon.png"/>
     <link rel="stylesheet" href="./css/events.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
         <link href="https://fonts.googleapis.com/css?family=Heebo:400,700|Oxygen:700" rel="stylesheet">
@@ -30,17 +32,18 @@
     </div>
     <div id="schedule">
         <div data-aos="fade-in" data-aos-delay="500" data-aos-duration="1000">
-        <button ><a href="index.html">Home</a></button>
+            <button ><a href="index.html">Home</a></button>
             <button id="create-event" onclick=showCreateEventForm()>New event</button>
             <button id="sort" onclick=sortEventsByDay()>Sort By Date</button>
             <button onclick=sortByCompletion()>Sort By Progress</button>
         </div>
+
         <div id="create-event-form">
             <form>
                 <input type="text" placeholder="Event Name" id="event-name"/>
                 <input type="text" placeholder="Date" id="datepicker"/>
                 <br><br>
-                <textarea id="create-event-goals" type="text" placeholder="Input goals on separate lines"></textarea>
+                <textarea id="create-event-goals" type="text" placeholder="Enter goals on separate lines"></textarea>
                 <br><br>
                 <button id="submit-event" type="button" onclick=addEvent()>Submit</button>
                 <button id="cancel-submit" type="button" onclick=cancelSubmit()>Cancel</button>
