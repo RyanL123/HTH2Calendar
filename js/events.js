@@ -247,7 +247,7 @@ function writeSubEvents(i){
         }
         // Sub event has not been completed
         else {
-            outputString += "<li class=\"incomplete\"> <button class=\"remove-sub-event\" onClick=removeSubEvent(\"" + cardID + "\",\"" + j.replace(/ /g, "-") + "\")>X</button><input onClick=updateFinishedPercent(\"" + cardID + "\") type=\"checkbox\" id=\"" + j + "\"/> " + "<span class=\"checkbox-custom\"></span>" + j + "</li>";
+            outputString += "<li class=\"incomplete\"> <button class=\"remove-sub-event\" onClick=removeSubEvent(\"" + cardID + "\",\"" + j.replace(/ /g, "-") + "\")>X</button><input onClick=updateFinishedPercent(\"" + cardID + "\") type=\"checkbox\" id=\"" + j + "\"/>" + "<span class=\"checkbox-custom\"></span>" + j + "</li>";
         }
     }
     return outputString + "</ul>";

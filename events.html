@@ -30,19 +30,19 @@
     <div id="schedule">
         <div data-aos="fade-in" data-aos-delay="500" data-aos-duration="1000">
             <button ><a href="index.html">Home</a></button>
-            <button id="create-event" onclick=showCreateEventForm()>New Event</button>
-            <button id="sort" onclick=sortEventsByDay()>Sort By Due Date</button>
-            <button onclick=sortByCompletion()>Sort By Progress</button>
+            <button id="create-event" onclick=showCreateEventForm()>New Task</button>
+            <button id="sort" onclick=sortEventsByDay()>Sort by Due Date</button>
+            <button onclick=sortByCompletion()>Sort by Progress</button>
         </div>
 
         <div id="create-event-form">
             <form>
-                <input type="text" placeholder="Event Name" id="event-name"/>
+                <input type="text" placeholder="Task Name" id="event-name"/>
                 <input type="text" placeholder="Date" id="datepicker"/>
                 <br><br>
                 <textarea id="create-event-goals" type="text" placeholder="Enter goals on separate lines"></textarea>
                 <br><br>
-                <button id="submit-event" type="button" onclick=addEvent()>Submit</button>
+                <button id="submit-event" type="button" onclick=addEvent()>Create</button>
                 <button id="cancel-submit" type="button" onclick=cancelSubmit()>Cancel</button>
             </form>
         </div>
