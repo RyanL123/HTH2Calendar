@@ -6,9 +6,9 @@ var events = {
             "dueMonth": 12,
             "dueDay": 10,
             "subEvents": {
-                "Body Paragraph 2": false,
+                "Body Paragraph 2": true,
                 "Body Paragraph 3": false,
-                "Conclusion Paragraph": true
+                "Conclusion Paragraph": false
             }
         },
         {
@@ -18,8 +18,8 @@ var events = {
             "dueDay": 8,
             "subEvents": {
                 "Hypothesis": true,
-                "Procedure": false,
-                "Observations": false,
+                "Procedure": true,
+                "Observations": true,
                 "Analysis": false
             }
         }
@@ -41,10 +41,12 @@ function parseDate(day, month, year){
     return months[month-1] + " " + day + ", " + year;
 }
 
+// Parses date into string
 function parseStringIntoDate(str){
     return date = str.split("/");
 }
 
+// Sorts cards by date, toggling through ascending and descending order every other sort
 var reverseDate = false;
 function sortEventsByDay(){
     if (!reverseDate){
@@ -70,6 +72,7 @@ function sortEventsByDay(){
     writeCards();
 }
 
+// Sort cards by completion rate, toggling throuhg ascending and descending order every other sort
 var reverseCompletion = false;
 function sortByCompletion(){
     if (!reverseCompletion){
@@ -91,6 +94,7 @@ function sortByCompletion(){
     writeCards();
 }
 
+// Get the completion percentage from a JSON Object and returns it as an float
 function finishedPercentFromObject(obj){
     let subEventCount = 0;
     let finishedSubEventCount = 0;
@@ -103,20 +107,36 @@ function finishedPercentFromObject(obj){
     return (finishedSubEventCount/subEventCount) * 100;
 }
 
+// Show the create event form
 function showCreateEventForm(){
     document.getElementById("create-event-form").style.display = "";
     document.getElementById("submit-event").style.display = "";
+    document.getElementById("cancel-submit").style.display = "";
 }
 
+// Cancel current submission and clear values in input fields
+function cancelSubmit(){
+    document.getElementById("event-name").value = "";
+    document.getElementById("datepicker").value = "";
+    document.getElementById("create-event-goals").value = "";
+    document.getElementById("create-event-form").style.display = "none";
+    document.getElementById("submit-event").style.display = "none";
+    document.getElementById("cancel-submit").style.display = "none";
+}
+
+// Adds a new events JSON Object into the events array
 function addEvent(){
     let name = document.getElementById("event-name").value;
     let date = document.getElementById("datepicker").value;
+    // Convert text into JSON object of all false values
     let goals = "{\"" + (document.getElementById("create-event-goals").value).replace(/\n/g, "\":false, \"") + "\":false}";
     document.getElementById("event-name").value = "";
     document.getElementById("datepicker").value = "";
     document.getElementById("create-event-goals").value = "";
     document.getElementById("create-event-form").style.display = "none";
     document.getElementById("submit-event").style.display = "none";
+    document.getElementById("cancel-submit").style.display = "none";
+    // If any text field is empty, abort
     if (name == "" || date == "" || goals == ""){
         return;
     }
@@ -132,7 +152,18 @@ function addEvent(){
     writeCards();
 }
 
-// Write cards into html
+// Remove a JSON Object with a certain id
+function removeEvent(id){
+    for (let i = 0; i < events.events.length; i++){
+        if (events.events[i].name == id){
+            events.events.splice(i, 1);
+            break;
+        }
+    }
+    writeCards();
+}
+
+// Write cards into DOM
 function writeCards(){
     var eventsContainer = document.getElementById("cardsContainer");
     eventsContainer.innerHTML = "";
@@ -147,42 +178,120 @@ function writeCards(){
         "<div class=\"subEvents\">" +
         writeSubEvents(i) +
         "</div>" +
-        "</div>" + 
-        "<div class=\"completePercent\">" +
-        finishedPercent(i).toFixed(2) + 
+        "</div>" +
+        "<div class=\"completePercent\" \>" +
+        finishedPercent(i) + 
         " %" +
-        "</div>" + 
-        "</div>"
+        "<br><button class=\"delete-card\" id=\"" + 
+        events.events[i].name + 
+        "\" onClick=removeEvent(this.id)>" +
+        "Delete" + 
+        "</button>" +
+        "</div>" +
+        "</div>";
     }
 }
 
+// Writes sub events into DOM
 function writeSubEvents(i){
     let outputString = "<ul>";
     for (var j in events.events[i].subEvents){
+        // Due to JS inserting quotes at the first whitespace of onclick functios, temporary
+        // dashes have to be used in order to construct elements with functions
+        let cardID = events.events[i].name.replace(/ /g, "-");
+
+        // Sub event has been completed
         if (events.events[i].subEvents[j]){
-            outputString += "<li class=\"completed\">" + j + "</li>";
+            outputString += "<li class=\"completed\"> <input class=\"checkbox\" onClick=updateFinishedPercent(\"" + cardID + "\") type=\"checkbox\" id=\"" + j + "\"checked/>" + "<span class=\"checkbox-custom\"></span>" + j + "</li>";
         }
+        // Sub event has not been completed
         else {
-            outputString += "<li class=\"incomplete\">" + j + "</li>";
+            outputString += "<li class=\"incomplete\"> <input onClick=updateFinishedPercent(\"" + cardID + "\") type=\"checkbox\" id=\"" + j + "\"/> " + "<span class=\"checkbox-custom\"></span>" + j + "</li>";
         }
     }
     return outputString + "</ul>";
 }
 
+// Gets the completion percentage of a JSON Object and returns it as a colored span element
 function finishedPercent(i){
     let subEventCount = 0;
     let finishedSubEventCount = 0;
-    for (var j in events.events[i].subEvents){
+    
+    // Iterate through sub events of given task
+    for (let j in events.events[i].subEvents){
         subEventCount++;
+
+        // Sub event has value of true
         if (events.events[i].subEvents[j]){
             finishedSubEventCount++;
         }
     }
-    return (finishedSubEventCount/subEventCount) * 100;
+    // Color code based on completion
+    if (finishedSubEventCount/subEventCount <= 0.25){
+        return "<span class=\"not-complete\" id=\"" + events.events[i].name + "\">" + ((finishedSubEventCount/subEventCount) * 100).toFixed(2) + "</span>";
+    }
+    else if (finishedSubEventCount/subEventCount <= 0.5){
+        return "<span class=\"halfway\" id=\"" + events.events[i].name + "\">" + ((finishedSubEventCount/subEventCount) * 100).toFixed(2) + "</span>";
+    }
+    else if (finishedSubEventCount/subEventCount <= 0.75){
+        return "<span class=\"almost-complete\" id=\"" + events.events[i].name + "\">" + ((finishedSubEventCount/subEventCount) * 100).toFixed(2) + "</span>";
+    }
+    return "<span class=\"complete\" id=\"" + events.events[i].name + "\">" + ((finishedSubEventCount/subEventCount) * 100).toFixed(2) + "</span>";
 }
 
 
+// Updates the completion percentage based on checkboxes filled in
+function updateFinishedPercent(id){
+    let subEventCount = 0;
+    let finishedSubEventCount = 0;
+
+    // Iterate through events to find correct task
+    for (let j = 0; j < events.events.length; j++){
+
+        // Because the parameters of this function was previously replaced with 
+        // Placeholders, this converts them back for comparison against
+        // Every created task, using linear search to check if they match
+        if (events.events[j].name == id.replace(/-/g, " ")){
+
+            // Iterate through subtasks and recount the completion percentage
+            for (let i in events.events[j].subEvents){
+                subEventCount++;
+                if (document.getElementById(i).checked){
+                    finishedSubEventCount++;
+                    // Modify completion boolean in JSON object so
+                    // changes aren't overwritten when calling
+                    // writeCards() again
+                    events.events[j].subEvents[i] = true;
+                }
+                else {
+                    // Modify completion boolean in JSON object so
+                    // sube events are not permanently true
+                    events.events[j].subEvents[i] = false;
+                }
+            }
+            // Break upon finding the targeted task
+            break;
+        }
+        
+    }
+    // Color coded based on completion
+    if (finishedSubEventCount/subEventCount <= 0.25){
+        document.getElementById(id.replace(/-/g, " ")).innerHTML = "<span class=\"not-complete\" id=\"" + id.replace(/-/g, " ") + "\">" + ((finishedSubEventCount/subEventCount) * 100).toFixed(2) + "</span>";
+    }
+    else if (finishedSubEventCount/subEventCount <= 0.5){
+        document.getElementById(id.replace(/-/g, " ")).innerHTML = "<span class=\"halfway\" id=\"" + id.replace(/-/g, " ") + "\">" + ((finishedSubEventCount/subEventCount) * 100).toFixed(2) + "</span>";
+    }
+    else if (finishedSubEventCount/subEventCount <= 0.75){
+        document.getElementById(id.replace(/-/g, " ")).innerHTML = "<span class=\"almost-complete\" id=\"" + id.replace(/-/g, " ") + "\">" + ((finishedSubEventCount/subEventCount) * 100).toFixed(2) + "</span>";
+    }
+    else {
+        document.getElementById(id.replace(/-/g, " ")).innerHTML = "<span class=\"complete\" id=\"" + id.replace(/-/g, " ") + "\">" + ((finishedSubEventCount/subEventCount) * 100).toFixed(2) + "</span>";
+    }
+}
+
+// Initially hide submit form
 document.getElementById("create-event-form").style.display = "none";
 document.getElementById("submit-event").style.display = "none";
+document.getElementById("cancel-submit").style.display = "none";
 writeCards();
 writeSubEvents(0);

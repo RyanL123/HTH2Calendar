@@ -29,6 +29,23 @@ body {
     animation: fadein 1s;
 }
 
+#welcome {
+    background-color: 	#0C0E1A;
+    z-index: -10;
+    position: absolute; /* Reposition logo from the natural layout */
+    top: 0px;
+    width: 100%;
+    height: 60vh;
+}
+
+#welcome h1 {
+    font-family: OxyReg;
+    text-align: center;
+    font-size: 60px;
+    color: white;
+    margin-top: 7%;
+}
+
 
 button {
     width: 200px;
@@ -70,7 +87,7 @@ button:hover {
 #schedule {
     text-align: center;
     margin: 0% 10%;
-    margin-top: 10%;
+    margin-top: 20%;
 }
 
 .eventCards {
@@ -283,4 +300,36 @@ button:hover {
     font-size: 50px;
     text-align: right;
     font-family: OxyReg;
+}
+
+.delete-card {
+    margin: 0;
+    margin-top: 2%;
+    -webkit-transition: background-color 200ms linear;
+    -ms-transition: background-color 200ms linear;
+    transition: background-color 200ms linear;
+}
+
+.delete-card:hover {
+    background-color: #f54542;
+    border-color: #f54542;
+    -webkit-transition: background-color 200ms linear;
+    -ms-transition: background-color 200ms linear;
+    transition: background-color 200ms linear;
+}
+
+.not-complete {
+    color: #f54542;
+}
+
+.halfway {
+    color: #ff7817;
+}
+
+.almost-complete {
+    color: #5cde1b;
+}
+
+.complete {
+    color: #3261d9;
 }
