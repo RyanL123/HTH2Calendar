@@ -223,9 +223,9 @@ function writeCards(){
         "\" onClick=removeEvent(this.id)>" +
         "Delete" + 
         "</button>" +
-        "<br><button class=\"addSubEvent\" onClick=addSubEvent(\""+events.events[i].name.replace(/ /g, "-") + "\")> Add Goal" +
+        "<br><button class=\"addSubEvent\" onClick=addSubEvent(\""+events.events[i].name.replace(/ /g, "-") + "\")> Add Subtask" +
         "</button>" +
-        "<br><input type=\"text\" placeholder=\"Goal\" class=\"subtaskName\" id=\"" +
+        "<br><input type=\"text\" placeholder=\"Subtask\" class=\"subtaskName\" id=\"" +
         events.events[i].name + 
         "-sub-event-input\">"+
         "</div>" +
@@ -243,11 +243,11 @@ function writeSubEvents(i){
 
         // Sub event has been completed
         if (events.events[i].subEvents[j]){
-            outputString += "<li class=\"completed\"> <button class=\"remove-sub-event\" onClick=removeSubEvent(\"" + cardID + "\",\"" + j.replace(/ /g, "-") + "\")>X</button><input class=\"checkbox\" onClick=updateFinishedPercent(\"" + cardID + "\") type=\"checkbox\" id=\"" + j + "\"checked/>" + "<span class=\"checkbox-custom\"></span>" + j + "</li>";
+            outputString += "<li class=\"completed\"><button class=\"remove-sub-event\" onClick=removeSubEvent(\"" + cardID + "\",\"" + j.replace(/ /g, "-") + "\")>X</button><input class=\"checkbox\" onClick=updateFinishedPercent(\"" + cardID + "\") type=\"checkbox\" id=\"" + j + "\"checked/><label>" + j + "</label></li>";
         }
         // Sub event has not been completed
         else {
-            outputString += "<li class=\"incomplete\"> <button class=\"remove-sub-event\" onClick=removeSubEvent(\"" + cardID + "\",\"" + j.replace(/ /g, "-") + "\")>X</button><input onClick=updateFinishedPercent(\"" + cardID + "\") type=\"checkbox\" id=\"" + j + "\"/>" + "<span class=\"checkbox-custom\"></span>" + j + "</li>";
+            outputString += "<li class=\"incomplete\"><button class=\"remove-sub-event\" onClick=removeSubEvent(\"" + cardID + "\",\"" + j.replace(/ /g, "-") + "\")>X</button><input onClick=updateFinishedPercent(\"" + cardID + "\") type=\"checkbox\" id=\"" + j + "\"/><label>" + j + "</label></li>";
         }
     }
     return outputString + "</ul>";

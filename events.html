@@ -38,9 +38,9 @@
         <div id="create-event-form">
             <form>
                 <input type="text" placeholder="Task Name" id="event-name"/>
-                <input type="text" placeholder="Date" id="datepicker"/>
+                <input type="text" placeholder="Due Date" id="datepicker"/>
                 <br><br>
-                <textarea id="create-event-goals" type="text" placeholder="Enter goals on separate lines"></textarea>
+                <textarea id="create-event-goals" type="text" placeholder="Enter subtasks on separate lines"></textarea>
                 <br><br>
                 <button id="submit-event" type="button" onclick=addEvent()>Create</button>
                 <button id="cancel-submit" type="button" onclick=cancelSubmit()>Cancel</button>
@@ -48,7 +48,7 @@
         </div>
         <div id="cardsContainer"></div>
     </div>
-    <div id="snackbar-success">Event Successfully Added!</div>
+    <div id="snackbar-success">Task Successfully Added!</div>
     <div id="snackbar-fail">Make sure you fill out all fields!</div>
     <script src="js/events.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
