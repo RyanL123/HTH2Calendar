@@ -75,6 +75,8 @@ function addEvent(){
             "subEvents": JSON.parse(goals)
         }
     )
+    document.getElementById("create-event-form").style.display = "none";
+    document.getElementById("submit-event").style.display = "none";
     writeCards();
 }
 
@@ -87,16 +89,17 @@ function writeCards(){
         "<h1>" +
         events.events[i].name +  
         "</h1>" +
-        "<h2>" +
+        "<h2 class=\"\">" +
         parseDate(events.events[i].dueDay,events.events[i].dueMonth, events.events[i].dueYear) +
-        "</h3>" +
+        "</h2>" +
+        "<div class=\"subEvents\">" +
+        writeSubEvents(i) +
+        "</div>" +
         "</div>" + 
         "<div class=\"completePercent\">" +
         finishedPercent(i).toFixed(2) + 
+        " %" +
         "</div>" + 
-        "<div class=\"subEvents\">" +
-        writeSubEvents(i) +
-        "</div>"
         "</div>"
     }
 }

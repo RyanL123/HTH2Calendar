@@ -1,26 +1,50 @@
+@font-face {
+    src: url("../fonts/Oxygen-Bold.ttf");
+    font-family: OxyBold;
+}
+
+@font-face {
+    src: url("../fonts/Oxygen-Regular.ttf");
+    font-family: OxyReg;
+}
+
+@font-face {
+    src: url("../fonts/Oxygen-Light.ttf");
+    font-family: OxyLight;
+}
+
 body {
     margin: 0;
 }
 
-/* .float-left-div{
-    display: block;
-    float: left;
-    width: 50%;
-} */
 
 button {
     width: 200px;
     height: 50px;
     background-color: white;
     font-size: 20px;
-    border-radius: 20px;
+    border-radius: 5px;
     outline: none;
-    border: 2px black solid;
+    border: 1px #4234F8 solid;
+    font-family: OxyLight;
+    -webkit-transition: color 200ms linear;
+    -ms-transition: color 200ms linear;
+    transition: color 200ms linear;
+    -webkit-transition: background-color 200ms linear;
+    -ms-transition: background-color 200ms linear;
+    transition: background-color 200ms linear;
+    margin: 0% 5%;
 }
 
 button:hover {
-    background-color: #333;
+    background-color: #4234F8;
     color: white;
+    -webkit-transition: color 200ms linear;
+    -ms-transition: color 200ms linear;
+    transition: color 200ms linear;
+    -webkit-transition: background-color 200ms linear;
+    -ms-transition: background-color 200ms linear;
+    transition: background-color 200ms linear;
 }
 
 #schedule {
@@ -32,10 +56,26 @@ button:hover {
 .eventCards {
     font-family: Arial, Helvetica, sans-serif;
     border-radius: 30px;
-    border: 2px black solid;
+    border: 1px #4234F8 solid;
     padding: 1% 2.5%;
     text-align: left;
     margin-bottom: 3%;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.eventCards h1 {
+    font-family: OxyReg;
+    font-size: 40px;
+    margin: 0;
+    
+}
+
+.eventCards h2 {
+    font-family: OxyLight;
+    font-size: 30px;
+    margin: 0;
+    color: #4234F8; 
 }
 
 
@@ -45,6 +85,7 @@ button:hover {
 
 #create-event-form {
     margin-top: 3%;
+    font-family: OxyLight;
 }
 
 #create-event-form input {
@@ -52,7 +93,7 @@ button:hover {
     padding: 10px;
     outline: none;
     border-radius: 10px;
-    border: 2px black solid;
+    border: 1px #4234F8 solid;
 }
 
 #create-event-goals{
@@ -62,7 +103,12 @@ button:hover {
     padding: 10px;
     outline: none;
     border-radius: 10px;
-    border: 2px black solid;
+    border: 1px #4234F8 solid;
+}
+
+.subEvents {
+    font-family: OxyReg;
+
 }
 
 .subEvents li {
@@ -70,20 +116,24 @@ button:hover {
     font-size: 20px;
 }
 
-.completed {
+/* .completed {
     color: green;
 }
 
 .incomplete {
     color: red;
-}
+} */
 
 .cardInfo {
-    float: left;
+    display: inline-block;
     width: 50%;
 }
 
 .completePercent {
+    vertical-align: top;
+    display: inline-block;
     width: 50%;
-    float: right;
+    font-size: 50px;
+    text-align: right;
+    font-family: OxyReg;
 }
