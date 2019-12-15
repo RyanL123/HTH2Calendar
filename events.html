@@ -14,6 +14,7 @@
 
     <link rel="stylesheet" href="./css/events.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+        <link href="https://fonts.googleapis.com/css?family=Heebo:400,700|Oxygen:700" rel="stylesheet">
     <script>
         $(function() {
             $("#datepicker").datepicker();
@@ -21,14 +22,19 @@
     </script>
 </head>
 <body>
+    <!-- <div id="welcome-images">
+        <img src="./images/iphone-feature-bg-04.svg" alt="">
+    </div> -->
     <div id="welcome">
         <h1 data-aos="fade-up" data-aos-deplay="500">Welcome, Ryan</h1>
     </div>
     <div id="schedule">
-        <button data-aos="fade-in" data-aos-delay="500" data-aos-duration="1000"><a href="index.html">Home</a></button>
-        <button data-aos="fade-in" data-aos-delay="500" data-aos-duration="1000" id="create-event" onclick=showCreateEventForm()>New event</button>
-        <button data-aos="fade-in" data-aos-delay="500" data-aos-duration="1000" id="sort" onclick=sortEventsByDay()>Sort By Date</button>
-        <button data-aos="fade-in" data-aos-delay="500" data-aos-duration="1000" onclick=sortByCompletion()>Sort By Progress</button>
+        <div data-aos="fade-in" data-aos-delay="500" data-aos-duration="1000">
+        <button ><a href="index.html">Home</a></button>
+            <button id="create-event" onclick=showCreateEventForm()>New event</button>
+            <button id="sort" onclick=sortEventsByDay()>Sort By Date</button>
+            <button onclick=sortByCompletion()>Sort By Progress</button>
+        </div>
         <div id="create-event-form">
             <form>
                 <input type="text" placeholder="Event Name" id="event-name"/>
@@ -36,12 +42,14 @@
                 <br><br>
                 <textarea id="create-event-goals" type="text" placeholder="Input goals on separate lines"></textarea>
                 <br><br>
+                <button id="submit-event" type="button" onclick=addEvent()>Submit</button>
+                <button id="cancel-submit" type="button" onclick=cancelSubmit()>Cancel</button>
             </form>
         </div>
-        <button id="submit-event" onclick=addEvent()>Submit</button>
-        <button id="cancel-submit" onclick=cancelSubmit()>Cancel</button>
         <div id="cardsContainer"></div>
     </div>
+    <div id="snackbar-success">Event Successfully Added!</div>
+    <div id="snackbar-fail">Make sure you fill out all fields!</div>
     <script src="js/events.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>

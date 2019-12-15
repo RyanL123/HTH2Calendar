@@ -137,7 +137,9 @@ function addEvent(){
     document.getElementById("submit-event").style.display = "none";
     document.getElementById("cancel-submit").style.display = "none";
     // If any text field is empty, abort
-    if (name == "" || date == "" || goals == ""){
+    if (name === "" || date === "" || goals === ""){
+        document.getElementById("snackbar-fail").className = "show";
+        setTimeout(function(){ document.getElementById("snackbar-fail").className = document.getElementById("snackbar-fail").className.replace("show", ""); }, 3000);
         return;
     }
     events.events.push(
@@ -149,6 +151,40 @@ function addEvent(){
             "subEvents": JSON.parse(goals)
         }
     )
+    document.getElementById("snackbar-success").className = "show";
+    setTimeout(function(){ document.getElementById("snackbar-success").className = document.getElementById("snackbar-success").className.replace("show", ""); }, 3000);
+    writeCards();
+}
+
+function addSubEvent(id){
+    console.log("success");
+    let txt = document.getElementById(id.replace(/-/g, " ") + "-sub-event-input").value;
+    if (txt == ""){
+        return;
+    }
+    for (let i = 0; i < events.events.length; i++){
+        if (events.events[i].name == id.replace(/-/g, " ")){
+            events.events[i].subEvents[txt] = false;
+            break;
+        }
+    }
+    txt.value = "";
+    writeCards();
+}
+
+function removeSubEvent(eventId, subEventId){
+    // console.log("success");
+    for (let i = 0; i < events.events.length; i++){
+        if (events.events[i].name == eventId.replace(/-/g, " ")){
+            console.log("success");
+            for (let j in events.events[i].subEvents){
+                if (j == subEventId.replace(/-/g, " ")){
+                    delete events.events[i].subEvents[subEventId.replace(/-/g, " ")];
+                    break;
+                }
+            }
+        }
+    }
     writeCards();
 }
 
@@ -187,6 +223,11 @@ function writeCards(){
         "\" onClick=removeEvent(this.id)>" +
         "Delete" + 
         "</button>" +
+        "<br><button class=\"addSubEvent\" onClick=addSubEvent(\""+events.events[i].name.replace(/ /g, "-") + "\")> Add Goal" +
+        "</button>" +
+        "<br><input type=\"text\" placeholder=\"Goal\" class=\"subtaskName\" id=\"" +
+        events.events[i].name + 
+        "-sub-event-input\">"+
         "</div>" +
         "</div>";
     }
@@ -196,17 +237,17 @@ function writeCards(){
 function writeSubEvents(i){
     let outputString = "<ul>";
     for (var j in events.events[i].subEvents){
-        // Due to JS inserting quotes at the first whitespace of onclick functios, temporary
+        // Due to JS inserting quotes at the first whitespace of onclick functions, temporary
         // dashes have to be used in order to construct elements with functions
         let cardID = events.events[i].name.replace(/ /g, "-");
 
         // Sub event has been completed
         if (events.events[i].subEvents[j]){
-            outputString += "<li class=\"completed\"> <input class=\"checkbox\" onClick=updateFinishedPercent(\"" + cardID + "\") type=\"checkbox\" id=\"" + j + "\"checked/>" + "<span class=\"checkbox-custom\"></span>" + j + "</li>";
+            outputString += "<li class=\"completed\"> <button class=\"remove-sub-event\" onClick=removeSubEvent(\"" + cardID + "\",\"" + j.replace(/ /g, "-") + "\")>X</button><input class=\"checkbox\" onClick=updateFinishedPercent(\"" + cardID + "\") type=\"checkbox\" id=\"" + j + "\"checked/>" + "<span class=\"checkbox-custom\"></span>" + j + "</li>";
         }
         // Sub event has not been completed
         else {
-            outputString += "<li class=\"incomplete\"> <input onClick=updateFinishedPercent(\"" + cardID + "\") type=\"checkbox\" id=\"" + j + "\"/> " + "<span class=\"checkbox-custom\"></span>" + j + "</li>";
+            outputString += "<li class=\"incomplete\"> <button class=\"remove-sub-event\" onClick=removeSubEvent(\"" + cardID + "\",\"" + j.replace(/ /g, "-") + "\")>X</button><input onClick=updateFinishedPercent(\"" + cardID + "\") type=\"checkbox\" id=\"" + j + "\"/> " + "<span class=\"checkbox-custom\"></span>" + j + "</li>";
         }
     }
     return outputString + "</ul>";
