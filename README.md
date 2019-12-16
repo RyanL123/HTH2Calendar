@@ -1,5 +1,7 @@
 # Task++
 
+## This was created at Hack the Hammer II 2019
+
 ## Inspiration
 
 Going into this event, we wanted to create a tool that could help students with managing their time more effectively. We noticed that there aren't many calendars that offer detailed services to help users manage tasks or deadlines, so we decided to implement our idea into a website application. Additionally, we ensured to make UI minimalistic and easy to navigate.
